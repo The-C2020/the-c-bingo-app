@@ -3,6 +3,9 @@ const WebSocket = require("ws");
 const express = require("express");
 const app = express();
 
+const PORT = process.env.PORT || 3000;
+const INDEX = "/index.html";
+
 app.use(express.static("client"));
 
 const server = http.createServer(app);
@@ -10,6 +13,7 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
 wss.on("connection", function (ws) {
+	console.log("Client connected");
 	ws.on("message", function (data) {
 		const info = JSON.parse(data);
 		console.log(info.tileID);
@@ -20,8 +24,7 @@ wss.on("connection", function (ws) {
 			}
 		});
 	});
+	ws.on("close", () => console.log("Client disconnected"));
 });
 
-server.listen(3000, () => {
-	console.log("Server is running on port 3000");
-});
+server.listen(PORT, () => console.log(`Listening on ${PORT}`));

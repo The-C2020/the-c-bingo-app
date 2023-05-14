@@ -2,6 +2,9 @@ const tiles = document.querySelectorAll(".bingo-tile");
 const color = document.querySelector("#color-picker");
 const select = document.querySelector(".selector");
 
+let HOST = location.origin.replace(/^http/, "ws");
+let server = new WebSocket(HOST);
+
 tiles.forEach((tile) => {
 	tile.addEventListener("click", () => {
 		const data = { tileID: tile.id, color: color.value };
@@ -17,7 +20,7 @@ function changeColor() {
 	select.classList.toggle(select.value);
 }
 
-const server = new WebSocket("ws://localhost:3000/websocket");
+//const server = new WebSocket("ws://localhost:3000/websocket");
 
 server.onopen = function () {
 	//button.disabled = false;
