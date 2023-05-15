@@ -21,6 +21,7 @@ wss.on("connection", function (ws) {
   ws.send(JSON.stringify(board)); // send board to client
   ws.on("message", function (data) {
     if (data.toString("utf8") === "reset") resetBoard(); // reset
+    else if (data.toString("utf8") === "ping") console.log("Connection renewed");
     else {
       const info = JSON.parse(data); // analyze data
       if (board[info.tileID - 1] === undefined)

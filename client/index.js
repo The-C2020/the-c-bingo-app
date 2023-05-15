@@ -40,7 +40,9 @@ function changeColor() {
 }
 
 server.onopen = function () {
-  //button.disabled = false;
+  setInterval(function () {
+    server.send("ping");
+  }, 50000);
 };
 
 server.onmessage = function (event) {
